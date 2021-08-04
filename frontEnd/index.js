@@ -2,6 +2,7 @@ const Discord = require("discord.js")
 const db = require("quick.db")
 require('dotenv').config();
 const client = new Discord.Client()
+
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
@@ -25,8 +26,11 @@ function postToBackend(data) {
 }
 
 // GET to backend API
-function getFromBackend() {
-  fetch('http://localhost:3000/')
+
+function getFromBackend(y) {
+  var route = y
+  const url = `http://localhost:3000/${route}`
+  fetch(url)
   .then(response => {
     console.log('response is', response);
     return response.json()
@@ -51,8 +55,8 @@ client.on('message', async (msg) => {
   const lang = await db.get(`${msg.guild.id}`);
   
   if (lang == null) {
-    if (greeting().query.some(word => msg.content.slice(prefix.length).trim().split(/ +/).includes(word))) {
-      return msg.channel.send(greeting().query3[Math.floor(Math.random() * botGreetEN.length)])
+    if (getFromBackend(1).greeting().some(word => msg.content.slice(prefix.length).trim().split(/ +/).includes(word))) {
+      return msg.channel.send(getFromBackend(2).greeting2()[Math.floor(Math.random() * botGreetEN.length)])
     } else {
       return msg.channel.send("Sorry I don't understand what you are saying");
     }

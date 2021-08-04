@@ -1,3 +1,4 @@
+/* const utils = require('../utils');
 const databaseManager = require('./db_manager');
 
 module.exports.greeting = function () {
@@ -5,4 +6,4 @@ module.exports.greeting = function () {
     return databaseManager        
         .greeting()
         
-};
+}; */

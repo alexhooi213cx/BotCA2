@@ -1,17 +1,23 @@
 const express = require('express')
 const cors = require('cors')
 const app = express() 
-
+var rout = require('./routes/greet_route')
 app.use(cors())
 const port = process.env.PORT || 3000;
 
-
-//host to heroku
 // CA3 get endpoint
-app.get('/data', (req, res) => {
-    require('./routes/greet_route')
+app.get('/1',rout, (req, res) => {  
+  
   res.json({
-      result: 'GET successful'
+      result: "Get Success"
+  })
+  // get from database
+})
+
+app.get('/2',rout, (req, res) => {  
+  
+  res.json({
+      result: "Get 2nd"
   })
   // get from database
 })
