@@ -16,4 +16,20 @@ router.get('/2', (req, res, next) => {
       .then((response) => res.json(response))
       .catch(next);
 });
+
+router.get('/3', (req, res, next) => {
+  return greetManager     
+     
+      .greeting3()
+      .then((response) => res.json(response))
+      .catch(next);
+});
+
+router.get('/4', (req, res, next) => {
+  return greetManager     
+     
+      .greeting4()
+      .then((response) => res.json(response))
+      .catch(next);
+});
   module.exports = router;

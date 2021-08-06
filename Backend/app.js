@@ -19,17 +19,23 @@ app.get('/2',rout, (req, res) => {
   res.json({
       result: "Get 2nd"
   })
-  // get from database
 })
 
-// CA3 post endpoint
-/* app.post('/data', (req, res) => {
-    require('./routes/greet_route')
-    res.json({
-        result: 'POST successful'
-    })
-    // save to database
-  }) */
+app.get('/3',rout, (req, res) => {  
+  
+  res.json({
+      result: "Get 3rd"
+  })
+})
+
+app.get('/4',rout, (req, res) => {  
+  
+  res.json({
+      result: "Get 4th"
+  })
+})
+
+
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)

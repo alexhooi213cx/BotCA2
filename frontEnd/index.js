@@ -7,62 +7,45 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
-// POST to backend API
-function postToBackend(data) {
-  fetch('http://localhost:3000', {
-    method: 'POST', // or 'PUT'
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-  })
-  .catch((error) => {
-    console.log('Error:', error);
-  });
-}
-
 // GET to backend API
 
-function getFromBackend(y) {
-  var route = y
-  const url = `http://localhost:3000/${route}`
-  fetch(url)
+function getFromBackend(url) {
+//  var url = 1
+  fetch(`http://localhost:3000/${url}`)
   .then(response => {
     console.log('response is', response);
     return response.json()
   })
-  .then(data => {
-    console.log('Success:', data);
-  })
-  .catch((error) => {
-    console.log('Error:', error);
-  });
+  .then(function (json) {
+    if (json == 0) {
+      alert("Error!");
+    } else {
+      console.log(json);
+    }
+  }); 
 }
+
+
 
 
 
 client.on('message', async (msg) => {
   // for command such as if prefix = "/" then i want to type to reply from bot, i need to type /hi or /hey
   const prefix = "";
-
   // response botGreetEN if msg.content include some of the words in var greetEN
   //slice(prefix.length).trim().split(/ +/)  is to set the format for the msg.content
   //msg.guild.id means id of the Bot test server      
   const lang = await db.get(`${msg.guild.id}`);
-  
+
   if (lang == null) {
-    if (getFromBackend(1).greeting().some(word => msg.content.slice(prefix.length).trim().split(/ +/).includes(word))) {
-      return msg.channel.send(getFromBackend(2).greeting2()[Math.floor(Math.random() * botGreetEN.length)])
+    if (getFromBackend(1).some(word => msg.content.slice(prefix.length).trim().split(/ +/).includes(word))) {
+      return msg.channel.send(getFromBackend(3)[Math.floor(Math.random() * getFromBackend(3).length)])
     } else {
       return msg.channel.send("Sorry I don't understand what you are saying");
     }
   } else if (lang == 'chinese') {
-    if (greeting().query2.some(word => msg.content.slice(prefix.length).trim().split(/ +/).includes(word))) {
-      msg.channel.send(greeting().query4[Math.floor(Math.random() * botGreetCHI.length)])
+    if (getFromBackend(2).query2.some(word => msg.content.slice(prefix.length).trim().split(/ +/).includes(word))) {
+      msg.channel.send(getFromBackend(4)[Math.floor(Math.random() * getFromBackend(4).length)])
     } else {
       return console.log("不好意思");
     }
@@ -97,31 +80,4 @@ client.on('message', async (msg) => {
 });
 
 client.login(process.env.TOKEN)
-// //test if it will go into the correct if else
-// /* else if (cmd == 'test') {
-//     let lang = await db.get(`${msg.guild.id}`);
-//     if (lang == null) {
-//       lang = 'en'
-//     } else if (lang == 'chinese') {
-//       lang = 'chinese'
 
-//       let word = require(`./lang/${lang}.js`);
-//       return msg.channel.send(word.test)
-
-//     }
-//   } */
-// /* const { Client } = require('pg')
-
-// const pgclient = new Client({
-// user: 'eyyyfpsw',
-// host: 'john.db.elephantsql.com',
-// database: 'eyyyfpsw',
-// password: 'TOxwbE9xMxyPv20Rfdzw-vhWJqwroBh6',
-// port: 5432,
-// })
-// pgclient.connect()
-// pgclient.query('SELECT * FROM "public"."tab1" LIMIT 100', (err, res) => {
-// console.log(err, res)
-// pgclient.end()
-// }) */
-// /* const translate = require("google-translate-api") */
